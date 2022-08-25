@@ -1,10 +1,15 @@
-import React,{useState,useContext,useEffect} from 'react'
+import React,{useState,useContext,useEffect, useMemo} from 'react'
 import SmallCalendar from '../smallCalendar/SmallCalendar'
 import day from 'dayjs'
 import {CalContext} from '../../context/ProjectContext'
+import SidebarEvent from './../sideBarEvent/SidebarEvent';
 
 function Sidebar() {
-    const {monthCtx,setMonthCtx} = useContext(CalContext)
+    const {monthCtx,setMonthCtx,eventCtx} = useContext(CalContext)
+
+    useEffect(()=>{
+        console.log('okay is it reload',eventCtx)
+    },[eventCtx])
 
     let handleNextDate = ()=>{
         setMonthCtx((prev)=>prev+1)
@@ -34,6 +39,11 @@ function Sidebar() {
                 </div>
             </div>
             <SmallCalendar />
+            <div className="my-5">
+                {eventCtx.map(each => (
+                    <SidebarEvent event={each} />
+                ))}
+            </div>
         </div>
     </div>
   )
