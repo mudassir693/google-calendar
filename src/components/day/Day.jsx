@@ -16,7 +16,6 @@ function Day({ day, weekIdx }) {
         let isMounted = true;
 
         const event = eventCtx.find(each => each.Date === day.format("YYYY MMMM D"));
-
         if (isMounted) {
             setEventBg(event ? event.Color : '');
             setHasEvent(!!event);
@@ -33,7 +32,7 @@ function Day({ day, weekIdx }) {
             className={`relative text-center flex-col border border-gray-300 ${hasEvent && eventBg ? `bg-[${eventBg}] text-white` : ''}`}
         >
             {weekIdx === 0 && (
-                <div>
+                <div className="text-sm text-gray-600">
                     {day.format('ddd')}
                 </div>
             )}
