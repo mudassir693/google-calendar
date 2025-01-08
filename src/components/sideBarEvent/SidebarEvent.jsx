@@ -1,29 +1,58 @@
-import React,{useContext} from 'react'
-import {CalContext} from '../../context/ProjectContext'
+import React, { useContext, useState } from 'react';
+import { CalContext } from '../../context/ProjectContext';
 
-function SidebarEvent({event}) {
-    console.log('what happen bhai',event)
-    const {setEventCtx} = useContext(CalContext)
+function SidebarEvent({ event }) {
+    const { setEventCtx } = useContext(CalContext);
+    const [hover, setHover] = useState(false);
+    const [eventTitle, setEventTitle] = useState(event?.Title);
+    const [eventDate, setEventDate] = useState(event?.Date);
 
-    let removeEle = (date=event.Date)=>{
-        // setEventCtx(prev=>{
-        //    return prev.filter(each=>each.Date!==date)
-        // })
-        setEventCtx(prev=>prev.filter(each=>each.Date!==event.Date))
-    }
-  return (
-    <div className={`bg-[${event?.Color}] flex justify-between py-3 my-2 rounded-lg px-3 text-white`}>
-        <div>
-            <span>{event?.Title.length>15?event?.Title.substring(0, 15)+"...":event?.Title}</span>
-            <span className="ml-4">
-                {event?.Date}
-            </span>
+    const removeEvent = (date = event.Date) => {
+        setEventCtx(prev => prev.filter(each => each.Date !== date));
+    };
+
+    const handleHoverIn = () => {
+        setHover(true);
+    };
+
+    const handleHoverOut = () => {
+        setHover(false);
+    };
+
+    const handleEdit = () => {
+        // Simulate editing event
+        setEventTitle("Edited Event Title");
+        setEventDate("2025-01-10");
+    };
+
+// const handleEdit = () => {
+//         // Simulate editing event
+//         setEventTitle("Edited Event Title");
+//         setEventDate("2025-01-10");
+//     };
+
+    return (
+        <div
+            onMouseEnter={handleHoverIn}
+            onMouseLeave={handleHoverOut}
+            className={`bg-[${event?.Color}] flex justify-between py-3 my-2 rounded-lg px-3 text-white`}
+        >
+            <div>
+                <span>{eventTitle.length > 15 ? eventTitle.substring(0, 15) + "..." : eventTitle}</span>
+                <span className="ml-4">
+                    {eventDate}
+                </span>
+            </div>
+            <div className="actions flex items-center">
+                <div onClick={removeEvent} className={`remove-btn cursor-pointer ${hover ? 'text-red-500' : ''}`}>
+                    <i className="fa-solid fa-xmark"></i>
+                </div>
+                <div onClick={handleEdit} className={`edit-btn cursor-pointer ml-2 ${hover ? 'text-blue-500' : ''}`}>
+                    <i className="fa-solid fa-pencil-alt"></i>
+                </div>
+            </div>
         </div>
-        <div onClick={removeEle} className="cross cursor-pointer">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-    </div>
-  )
+    );
 }
 
-export default SidebarEvent
+export default SidebarEvent;
