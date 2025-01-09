@@ -1,42 +1,43 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { CalContext } from '../../context/ProjectContext';
 
+const colorOptions = ['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'];
+
 function EventModal() {
-    const [selectedColor, setSelectedColor] = useState('#e1b0ff');
     const { setEventCtx, selectDateCtx, setModalOpenCtx } = useContext(CalContext);
-    const [event, setEvent] = useState('');
+    const [selectedColor, setSelectedColor] = React.useState(colorOptions[0]);
+    const [eventTitle, setEventTitle] = React.useState('');
 
     const handleSubmit = () => {
-        setEventCtx(prev => [...prev, { Title: event, Date: selectDateCtx, Color: selectedColor }]);
-        setModalOpenCtx(false);
+        if (eventTitle.trim()) {
+            setEventCtx(prev => [...prev, { Title: eventTitle, Date: selectDateCtx, Color: selectedColor }]);
+            setModalOpenCtx(false);
+        }
     };
 
     return (
-        <div className="absolute top-[50%] translate-y-[-50%] shadow-lg rounded-lg overflow-hidden bg-white z-10 translate-x-[-50%] left-[50%] w-[50%]">
-            <div className="header w-full bg-gray-200 flex justify-end py-2 px-3">
-                <i className="fa-solid fa-xmark" onClick={() => setModalOpenCtx(false)}></i>
+        <div className="absolute top-1/2 left-1/2 w-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg z-10">
+            <div className="header bg-gray-200 flex justify-end py-2 px-3">
+                <i className="fa-solid fa-xmark cursor-pointer" onClick={() => setModalOpenCtx(false)}></i>
             </div>
-            <div className="titleSection text-2xl text-gray-700 w-[70%] mx-auto my-5">
+            <div className="titleSection text-2xl text-gray-700 w-3/4 mx-auto my-5">
                 {selectDateCtx}
             </div>
-            <div className="titleSection w-[70%] mx-auto my-5">
-                <div className="input border-b-[3px] border-blue-500">
-                    <input 
-                        onChange={(e) => setEvent(e.target.value)} 
-                        className="border-none outline-none text-3xl text-gray-700" 
-                        value={event} 
-                        placeholder="Add Event" 
-                        type="text" 
-                        name="event" 
-                    />
-                </div>
+            <div className="titleSection w-3/4 mx-auto my-5">
+                <input 
+                    onChange={(e) => setEventTitle(e.target.value)} 
+                    className="w-full border-b-3 border-blue-500 text-3xl text-gray-700 outline-none" 
+                    value={eventTitle} 
+                    placeholder="Add Event" 
+                    type="text" 
+                />
             </div>
-            <div className="tagSection w-[70%] mx-auto mb-5 flex items-center">
-                {['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'].map(color => (
+            <div className="tagSection w-3/4 mx-auto mb-5 flex items-center justify-center">
+                {colorOptions.map((color) => (
                     <div 
                         key={color} 
                         onClick={() => setSelectedColor(color)} 
-                        className={`shade cursor-pointer mx-2 w-[35px] h-[35px] rounded-full flex justify-center items-center text-white`} 
+                        className={`cursor-pointer mx-2 w-9 h-9 rounded-full flex justify-center items-center text-white`} 
                         style={{ backgroundColor: color }}
                     >
                         {selectedColor === color && <i className="fa-solid fa-check"></i>}
@@ -46,7 +47,7 @@ function EventModal() {
             <div className="saveBtn flex justify-end mx-5 my-2">
                 <div 
                     onClick={handleSubmit} 
-                    className="save py-2 px-5 rounded-lg bg-blue-500 text-white text-sm cursor-pointer"
+                    className="py-2 px-5 rounded-lg bg-blue-500 text-white text-sm cursor-pointer"
                 >
                     Save
                 </div>
