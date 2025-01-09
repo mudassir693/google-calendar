@@ -7,7 +7,7 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
-    const handleMonthChange = (direction) => {
+    const handleUpdateMonth = (direction) => {
         setMonthCtx(prev => prev + direction);
     };
 
@@ -33,13 +33,13 @@ function Sidebar() {
                     {day(new Date(day().year(), monthCtx)).format('MMMM YYYY')}
                     <div className="schevrons flex items-center">
                         <div
-                            onClick={() => handleMonthChange(-1)}
+                            onClick={() => handleUpdateMonth(-1)}
                             className="left text-gray-700 mx-2 cursor-pointer"
                         >
                             <i className="fa-solid fa-chevron-left"></i>
                         </div>
                         <div
-                            onClick={() => handleMonthChange(1)}
+                            onClick={() => handleUpdateMonth(1)}
                             className="right text-gray-700 mx-2 cursor-pointer"
                         >
                             <i className="fa-solid fa-chevron-right"></i>
