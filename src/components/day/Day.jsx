@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
 
+
 function fetchEventColor() {
     return '';
 }
@@ -17,6 +18,7 @@ function isToday(date) {
 function handleModalOpen(selectedDate, setSelectDateCtx, setModalOpenCtx) {
     setSelectDateCtx(selectedDate.format("YYYY MMMM D"));
     setModalOpenCtx(prev => !prev);
+
 }
 
 function Day({ day, weekIdx }) {

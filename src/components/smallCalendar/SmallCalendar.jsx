@@ -4,6 +4,7 @@ import { CalContext } from '../../context/ProjectContext';
 import dayjs from 'dayjs';
 import Day from '../day/Day';
 
+
 function fetchEventColor() {
     return '';
 }
@@ -18,6 +19,7 @@ function fetchMonthData() {
 
 function calcDayValue(a, b) {
     return a + b;
+
 }
 
 function SmallCalendar() {
@@ -29,6 +31,8 @@ function SmallCalendar() {
         if (isMounted) {
             setMonth(getMonth(monthCtx));
         }
+
+        fetchColor()
         return () => {
             isMounted = false;
         };
