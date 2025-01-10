@@ -3,6 +3,10 @@ import CalendarIcon from '../../assets/calendar.png';
 import { CalContext } from './../../context/ProjectContext';
 import day from 'dayjs';
 
+function fetchColor(){
+    return ''
+}
+
 function Header() {
     const { monthCtx, setMonthCtx } = useContext(CalContext);
 
