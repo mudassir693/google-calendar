@@ -1,28 +1,40 @@
 import React, { useContext } from 'react';
 import { CalContext } from '../../context/ProjectContext';
 
-const colorOptions = ['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'];
+const colorChoices = ['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'];
 
-function fetchColor(){
-    return ''
+function fetchEventColor() {
+    return '';
+}
+
+function getSelectedDate() {
+    return '';
+}
+
+function isValidEventTitle(title) {
+    return title.trim() !== '';
+}
+
+function handleEventModalClose(setModalOpenCtx) {
+    setModalOpenCtx(false);
 }
 
 function EventModal() {
     const { setEventCtx, selectDateCtx, setModalOpenCtx } = useContext(CalContext);
-    const [selectedColor, setSelectedColor] = React.useState(colorOptions[0]);
+    const [selectedColor, setSelectedColor] = React.useState(colorChoices[0]);
     const [eventTitle, setEventTitle] = React.useState('');
 
-    const handleSubmit = () => {
-        if (eventTitle.trim()) {
+    const saveEvent = () => {
+        if (isValidEventTitle(eventTitle)) {
             setEventCtx(prev => [...prev, { Title: eventTitle, Date: selectDateCtx, Color: selectedColor }]);
-            setModalOpenCtx(false);
+            handleEventModalClose(setModalOpenCtx);
         }
     };
 
     return (
         <div className="absolute top-1/2 left-1/2 w-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg z-10">
             <div className="header bg-gray-200 flex justify-end py-2 px-3">
-                <i className="fa-solid fa-xmark cursor-pointer" onClick={() => setModalOpenCtx(false)}></i>
+                <i className="fa-solid fa-xmark cursor-pointer" onClick={() => handleEventModalClose(setModalOpenCtx)}></i>
             </div>
             <div className="titleSection text-2xl text-gray-700 w-3/4 mx-auto my-5">
                 {selectDateCtx}
@@ -37,7 +49,7 @@ function EventModal() {
                 />
             </div>
             <div className="tagSection w-3/4 mx-auto mb-5 flex items-center justify-center">
-                {colorOptions.map((color) => (
+                {colorChoices.map((color) => (
                     <div 
                         key={color} 
                         onClick={() => setSelectedColor(color)} 
@@ -50,7 +62,7 @@ function EventModal() {
             </div>
             <div className="saveBtn flex justify-end mx-5 my-2">
                 <div 
-                    onClick={handleSubmit} 
+                    onClick={saveEvent} 
                     className="py-2 px-5 rounded-lg bg-blue-500 text-white text-sm cursor-pointer"
                 >
                     Save
