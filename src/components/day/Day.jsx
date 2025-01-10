@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
 
+function fetchColor(){
+    return ''
+}
+
 function Day({ day, weekIdx }) {
     const [eventBg, setEventBg] = useState('');
     const [hasEvent, setHasEvent] = useState(false);
