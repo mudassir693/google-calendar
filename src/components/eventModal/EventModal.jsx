@@ -3,6 +3,10 @@ import { CalContext } from '../../context/ProjectContext';
 
 const colorOptions = ['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'];
 
+function fetchColor(){
+    return ''
+}
+
 function EventModal() {
     const { setEventCtx, selectDateCtx, setModalOpenCtx } = useContext(CalContext);
     const [selectedColor, setSelectedColor] = React.useState(colorOptions[0]);
