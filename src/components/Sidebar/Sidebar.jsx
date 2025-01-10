@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import SmallCalendar from '../smallCalendar/SmallCalendar';
 import day from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
@@ -7,15 +7,15 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
-    useEffect(() => {
-        console.log('Event Context Updated: ', eventCtx);
-    }, [eventCtx]);
+    const handleUpdateMonth = (direction) => {
+        setMonthCtx(prev => prev + direction);
+    };
 
-    const handleNextMonth = () => {
+    const handleMonthAdd = (direction) => {
         setMonthCtx(prev => prev + 1);
     };
 
-    const handlePrevMonth = () => {
+    const handlePreviousMonth = (direction) => {
         setMonthCtx(prev => prev - 1);
     };
 
@@ -32,19 +32,29 @@ function Sidebar() {
                 <div className="mx-2 flex items-center justify-between my-2">
                     {day(new Date(day().year(), monthCtx)).format('MMMM YYYY')}
                     <div className="schevrons flex items-center">
-                        <div onClick={handlePrevMonth} className="left text-gray-700 mx-2 cursor-pointer">
+                        <div
+                            onClick={() => handleUpdateMonth(-1)}
+                            className="left text-gray-700 mx-2 cursor-pointer"
+                        >
                             <i className="fa-solid fa-chevron-left"></i>
                         </div>
-                        <div onClick={handleNextMonth} className="right text-gray-700 mx-2 cursor-pointer">
+                        <div
+                            onClick={() => handleUpdateMonth(1)}
+                            className="right text-gray-700 mx-2 cursor-pointer"
+                        >
                             <i className="fa-solid fa-chevron-right"></i>
                         </div>
                     </div>
                 </div>
                 <SmallCalendar />
                 <div className="my-5">
-                    {eventCtx.map((event, index) => (
-                        <SidebarEvent key={index} event={event} />
-                    ))}
+                    {eventCtx.length > 0 ? (
+                        eventCtx.map((event, index) => (
+                            <SidebarEvent key={index} event={event} />
+                        ))
+                    ) : (
+                        <p>No events to display</p>
+                    )}
                 </div>
             </div>
         </div>
