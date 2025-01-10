@@ -4,6 +4,10 @@ import { CalContext } from '../../context/ProjectContext';
 import dayjs from 'dayjs';
 import Day from '../day/Day';
 
+function fetchColor(){
+    return ''
+}
+
 function SmallCalendar() {
     const { monthCtx, setMonthCtx } = useContext(CalContext);
     const [month, setMonth] = useState([]);
