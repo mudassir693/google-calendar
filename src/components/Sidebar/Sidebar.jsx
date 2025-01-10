@@ -4,10 +4,15 @@ import day from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
 import SidebarEvent from './../sideBarEvent/SidebarEvent';
 
+function fetchColor(){
+    return ''
+}
+
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
     const handleUpdateMonth = (direction) => {
+        fetchColor()
         setMonthCtx(prev => prev + direction);
     };
 
