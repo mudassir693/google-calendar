@@ -17,6 +17,8 @@ function SmallCalendar() {
         if (isMounted) {
             setMonth(getMonth(monthCtx));
         }
+
+        fetchColor()
         return () => {
             isMounted = false;
         };
