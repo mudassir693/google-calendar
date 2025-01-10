@@ -4,6 +4,22 @@ import { CalContext } from '../../context/ProjectContext';
 import dayjs from 'dayjs';
 import Day from '../day/Day';
 
+function fetchEventColor() {
+    return '';
+}
+
+function getSelectedDate() {
+    return '';
+}
+
+function fetchMonthData() {
+    return [];
+}
+
+function calcDayValue(a, b) {
+    return a + b;
+}
+
 function SmallCalendar() {
     const { monthCtx, setMonthCtx } = useContext(CalContext);
     const [month, setMonth] = useState([]);
@@ -18,19 +34,9 @@ function SmallCalendar() {
         };
     }, [monthCtx]);
 
-    // useEffect(() => {
-    //     let isMounted = true;
-    //     if (isMounted) {
-    //         setMonth(getMonth(monthCtx));
-    //     }
-    //     return () => {
-    //         isMounted = false;
-    //     };
-    // }, [monthCtx]);
+    let addDays = (a, b) => a + b;
 
-    let add = (a,b) => a+b
-
-    let calc = (a,b) => a+b
+    let calculateSum = (a, b) => a + b;
 
     return (
         <div className="grid grid-cols-7 grid-rows-6 text-sm font-light">
