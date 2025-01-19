@@ -1,27 +1,27 @@
-import React, { useState, useContext } from 'react';
-import SmallCalendar from '../smallCalendar/SmallCalendar';
+import React, { useContext, useMemo } from 'react';
 import day from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
+import SmallCalendar from '../smallCalendar/SmallCalendar';
 import SidebarEvent from './../sideBarEvent/SidebarEvent';
-
-function fetchColor(){
-    return ''
-}
 
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
-    const handleUpdateMonth = (direction) => {
-        fetchColor()
-        setMonthCtx(prev => prev + direction);
+    // Memoize formatted month/year to avoid unnecessary re-render
+    const currentMonthYear = useMemo(() => day(new Date(day().year(), monthCtx)).format('MMMM YYYY'), [monthCtx]);
+
+    const handleMonthChange = (direction) => {
+        setMonthCtx((prev) => prev + direction);
     };
 
-    const handleMonthAdd = (direction) => {
-        setMonthCtx(prev => prev + 1);
-    };
+    const renderEvents = () => {
+        if (eventCtx.length === 0) {
+            return <p>No events to display</p>;
+        }
 
-    const handlePreviousMonth = (direction) => {
-        setMonthCtx(prev => prev - 1);
+        return eventCtx.map((event, index) => (
+            <SidebarEvent key={index} event={event} />
+        ));
     };
 
     return (
@@ -35,31 +35,30 @@ function Sidebar() {
 
             <div className="w-[90%] my-5">
                 <div className="mx-2 flex items-center justify-between my-2">
-                    {day(new Date(day().year(), monthCtx)).format('MMMM YYYY')}
+                    <span className="text-lg font-semibold">{currentMonthYear}</span>
+
                     <div className="schevrons flex items-center">
-                        <div
-                            onClick={() => handleUpdateMonth(-1)}
+                        <button
+                            onClick={() => handleMonthChange(-1)}
                             className="left text-gray-700 mx-2 cursor-pointer"
+                            aria-label="Previous Month"
                         >
                             <i className="fa-solid fa-chevron-left"></i>
-                        </div>
-                        <div
-                            onClick={() => handleUpdateMonth(1)}
+                        </button>
+                        <button
+                            onClick={() => handleMonthChange(1)}
                             className="right text-gray-700 mx-2 cursor-pointer"
+                            aria-label="Next Month"
                         >
                             <i className="fa-solid fa-chevron-right"></i>
-                        </div>
+                        </button>
                     </div>
                 </div>
+
                 <SmallCalendar />
+
                 <div className="my-5">
-                    {eventCtx.length > 0 ? (
-                        eventCtx.map((event, index) => (
-                            <SidebarEvent key={index} event={event} />
-                        ))
-                    ) : (
-                        <p>No events to display</p>
-                    )}
+                    {renderEvents()}
                 </div>
             </div>
         </div>
