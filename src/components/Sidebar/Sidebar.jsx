@@ -7,7 +7,6 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
-    // Memoize formatted month/year to avoid unnecessary re-render
     const currentMonthYear = useMemo(() => day(new Date(day().year(), monthCtx)).format('MMMM YYYY'), [monthCtx]);
 
     const handleMonthChange = (direction) => {
