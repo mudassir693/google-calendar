@@ -17,10 +17,6 @@ function Header() {
         setMonthCtx(day().month());
     };
 
-    // const handleToday = () => {
-    //     setMonthCtx(day().month());
-    // };
-
     const formattedMonth = day(new Date(day().year(), monthCtx)).format('MMMM YYYY');
 
     return (
