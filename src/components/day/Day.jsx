@@ -56,7 +56,8 @@ function Day({ day, weekIdx }) {
                 </div>
             )}
             <div className={`absolute top-[50%] translate-x-[-50%] left-[50%] h-full flex-1 my-auto ${isToday(day) ? 'translate-y-[-20%]' : 'translate-y-[-10%]'}`}>
-                <div className={`${isToday(day) ? 'bg-blue-500 rounded-full w-[50px] h-[50px] text-white' : ''} flex justify-center items-center`}>
+                {console.log('hello)}
+                <div className={`${isToday(day) ? 'bg-blue-500 rounded-full w-full h-full text-white' : ''} flex justify-center items-center`}>
                     {day.format('DD')}
                 </div>
             </div>
