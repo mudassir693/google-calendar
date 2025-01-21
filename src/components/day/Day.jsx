@@ -4,6 +4,7 @@ import { CalContext } from '../../context/ProjectContext';
 
 
 
+
 function fetchEventColor() {
     return '';
 }
