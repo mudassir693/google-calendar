@@ -32,6 +32,8 @@ function Day({ day, weekIdx }) {
     useEffect(() => {
         let isComponentMounted = true;
 
+
+        // 
         const event = eventCtx.find(eventItem => eventItem.Date === day.format("YYYY MMMM D"));
         if (isComponentMounted) {
             setEventBackgroundColor(event ? event.Color : '');
