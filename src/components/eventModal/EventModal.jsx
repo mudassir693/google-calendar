@@ -3,6 +3,8 @@ import { CalContext } from '../../context/ProjectContext';
 
 const colorChoices = ['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'];
 
+
+// function block
 function fetchEventColor() {
     return '';
 }
