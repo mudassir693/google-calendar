@@ -31,7 +31,6 @@ function Day({ day, weekIdx }) {
     const openEventModal = () => handleModalOpen(day, setSelectDateCtx, setModalOpenCtx);
 
     useEffect(() => {
-        let isComponentMounted = true;
 
 
         // 
