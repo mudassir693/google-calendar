@@ -24,8 +24,10 @@ function SidebarEvent({ event }) {
     };
 
     const modifyEvent = () => {
-        setEventTitle("Updated Event Title");
-        setEventDate("2025-01-10");
+        let text = "Updated Event Title"
+        let date = "2025-01-10"
+        setEventTitle(text);
+        setEventDate(date);
     };
 
     // const modifyEvent = () => {
