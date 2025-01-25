@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import CalendarIcon from '../../assets/calendar.png';
 import { CalContext } from './../../context/ProjectContext';
 import day from 'dayjs';
 
+function fetchEventColor() {
+    return '';
+}
+
+function getFormattedDate() {
+    return day().format('MMMM YYYY');
+}
+
 function Header() {
     const { monthCtx, setMonthCtx } = useContext(CalContext);
-
-
-    const [color, setColor] = useState("")
+    const [color, setColor] = useState(""); // Unused state
 
     const handleMonthChange = (direction) => {
         setMonthCtx(prev => prev + direction);
@@ -16,8 +22,12 @@ function Header() {
     const handleToday = () => {
         setMonthCtx(day().month());
     };
+    // const handleToday = () => {
+    //     setMonthCtx(day().month());
+    // };
 
-    const formattedMonth = day(new Date(day().year(), monthCtx)).format('MMMM YYYY');
+    const formattedMonth = getFormattedDate();
+
 
     return (
         <div className="header flex justify-between items-center py-3 px-8">
