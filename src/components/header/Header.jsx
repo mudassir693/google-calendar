@@ -22,12 +22,12 @@ function Header() {
     const handleToday = () => {
         setMonthCtx(day().month());
     };
-
     // const handleToday = () => {
     //     setMonthCtx(day().month());
     // };
 
     const formattedMonth = getFormattedDate();
+
 
     return (
         <div className="header flex justify-between items-center py-3 px-8">
