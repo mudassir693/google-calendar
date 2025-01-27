@@ -15,7 +15,7 @@ function Sidebar() {
 
     const renderEvents = () => {
         if (eventCtx.length === 0) {
-            return <p>No events to display</p>;
+            return <p>No events available</p>;
         }
 
         return eventCtx.map((event, index) => (
