@@ -1,11 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import CalendarIcon from '../../assets/calendar.png';
 import { CalContext } from './../../context/ProjectContext';
 import day from 'dayjs';
-
-function fetchEventColor() {
-    return '';
-}
 
 function getFormattedDate() {
     return day().format('MMMM YYYY');
@@ -13,7 +9,6 @@ function getFormattedDate() {
 
 function Header() {
     const { monthCtx, setMonthCtx } = useContext(CalContext);
-    const [color, setColor] = useState(""); // Unused state
 
     const handleMonthChange = (direction) => {
         setMonthCtx(prev => prev + direction);
@@ -22,12 +17,8 @@ function Header() {
     const handleToday = () => {
         setMonthCtx(day().month());
     };
-    // const handleToday = () => {
-    //     setMonthCtx(day().month());
-    // };
 
     const formattedMonth = getFormattedDate();
-
 
     return (
         <div className="header flex justify-between items-center py-3 px-8">
@@ -39,6 +30,7 @@ function Header() {
                 <div 
                     onClick={handleToday} 
                     className="todayBtn border border-gray-100 rounded-lg text-gray-700 mx-4 py-2 px-2 font-medium text-sm cursor-pointer"
+                    aria-label="Go to Today"
                 >
                     Today
                 </div>
@@ -46,12 +38,14 @@ function Header() {
                     <div 
                         onClick={() => handleMonthChange(-1)} 
                         className="left text-gray-700 mx-2 cursor-pointer"
+                        aria-label="Previous Month"
                     >
                         <i className="fa-solid fa-chevron-left"></i>
                     </div>
                     <div 
                         onClick={() => handleMonthChange(1)} 
                         className="right text-gray-700 mx-2 cursor-pointer"
+                        aria-label="Next Month"
                     >
                         <i className="fa-solid fa-chevron-right"></i>
                     </div>
