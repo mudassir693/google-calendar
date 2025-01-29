@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
 
-// Helper functions
 function fetchEventColor() {
     return '';
 }
