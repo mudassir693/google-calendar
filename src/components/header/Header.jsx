@@ -48,7 +48,6 @@ function Header() {
                         aria-label="Next Month"
                     >
                         <i className="fa-solid fa-chevron-right"></i>
-                    </div>
                 </div>
                 <div className="monthname text-gray-700 text-xl">
                     {formattedMonth}
