@@ -1,8 +1,6 @@
-import React, { useContext, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { CalContext } from '../../context/ProjectContext';
-
-// comments
 
 function fetchEventColor() {
     return '';
@@ -19,9 +17,7 @@ function isToday(date) {
 function handleModalOpen(selectedDate, setSelectDateCtx, setModalOpenCtx) {
     setSelectDateCtx(selectedDate.format("YYYY MMMM D"));
     setModalOpenCtx(prev => !prev);
-
 }
-
 
 function Day({ day, weekIdx }) {
     const [eventBackgroundColor, setEventBackgroundColor] = useState('');
@@ -31,14 +27,12 @@ function Day({ day, weekIdx }) {
     const openEventModal = () => handleModalOpen(day, setSelectDateCtx, setModalOpenCtx);
 
     useEffect(() => {
+        let isComponentMounted = true;
 
-
-        // 
         const event = eventCtx.find(eventItem => eventItem.Date === day.format("YYYY MMMM D"));
         if (isComponentMounted) {
             setEventBackgroundColor(event ? event.Color : '');
             setHasEvent(!!event);
-
         }
 
         return () => {
@@ -46,21 +40,15 @@ function Day({ day, weekIdx }) {
         };
     }, [eventCtx, dayReRender]);
 
-    return (
-        <div
-            onClick={openEventModal}
-            className={`relative text-center flex-col border border-gray-300 ${hasEvent && eventBackgroundColor ? `bg-[${eventBackgroundColor}] text-white` : ''}`}
-
     const isToday = day.format('YYYY MMM DD') === dayjs().format('YYYY MMM DD');
     const dayClass = isToday ? 'bg-blue-500 rounded-full w-[50px] h-[50px] text-white' : '';
 
     return (
         <div
-            onClick={openModal}
-            className={`relative text-center flex-col border border-gray-300 cursor-pointer ${hasEvent && eventBg ? `bg-[${eventBg}] text-white` : ''}`}
-            aria-label={`Day: ${day.format('YYYY MMMM D')}`}
-
-
+            onClick={openEventModal}
+            className={`relative text-center flex-col border border-gray-300 cursor-pointer ${hasEvent && eventBackgroundColor ? `bg-[${eventBackgroundColor}] text-white` : ''}`}
+            aria-label={`Day: ${day.format('YYYY MMMM D')} ${hasEvent ? 'has event' : 'no events'}`}
+        >
             <div
                 className={`absolute top-[50%] left-[50%] translate-x-[-50%] my-auto ${isToday ? 'translate-y-[-20%]' : 'translate-y-[-10%]'}`}
             >

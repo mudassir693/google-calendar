@@ -7,19 +7,18 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
-    const currentMonthYear = useMemo(() => day(new Date(day().year(), monthCtx)).format('MMMM YYYY'), [monthCtx]);
 
     const handleMonthChange = (direction) => {
         setMonthCtx((prev) => prev + direction);
     };
 
     const renderEvents = () => {
-        if (eventCtx.length === 0) {
+        if (!eventCtx.length) {
             return <p>No events to display</p>;
         }
 
-        return eventCtx.map((event, index) => (
-            <SidebarEvent key={index} event={event} />
+        return eventCtx.map((event) => (
+            <SidebarEvent key={event.id || event.name} event={event} />
         ));
     };
 
@@ -28,7 +27,7 @@ function Sidebar() {
             <div className="create-btn py-2 px-3 w-fit rounded-full font-semibold drop-shadow-xl border border-gray-500 cursor-pointer">
                 Create
                 <span className="ml-8">
-                    <i className="fa-solid fa-caret-down"></i>
+                    <i className="fa-solid fa-caret-down" aria-hidden="true"></i>
                 </span>
             </div>
 
@@ -42,14 +41,14 @@ function Sidebar() {
                             className="left text-gray-700 mx-2 cursor-pointer"
                             aria-label="Previous Month"
                         >
-                            <i className="fa-solid fa-chevron-left"></i>
+                            <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
                         </button>
                         <button
                             onClick={() => handleMonthChange(1)}
                             className="right text-gray-700 mx-2 cursor-pointer"
                             aria-label="Next Month"
                         >
-                            <i className="fa-solid fa-chevron-right"></i>
+                            <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
