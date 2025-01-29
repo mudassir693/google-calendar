@@ -7,10 +7,6 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
 
-    const currentMonthYear = useMemo(
-        () => day(new Date(day().year(), monthCtx)).format('MMMM YYYY'),
-        [monthCtx]
-    );
 
     const handleMonthChange = (direction) => {
         setMonthCtx((prev) => prev + direction);
