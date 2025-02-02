@@ -6,7 +6,7 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
-    let secret = 'aws_asdasdascepk'
+    let secret = process.env.AWS_SECRET
 
     const currentMonthYear = useMemo(() => day(new Date(day().year(), monthCtx)).format('MMMM YYYY'), [monthCtx]);
 
