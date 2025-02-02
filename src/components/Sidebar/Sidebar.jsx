@@ -15,13 +15,13 @@ function Sidebar() {
     };
 
     const renderEvents = () => {
-        if (eventCtx.length === 0) {
+        if (eventCtx.length === 0 || !eventCtx) {
             return <p>No events available</p>;
         }
 
-        return eventCtx.map((event, index) => (
+        return eventCtx ? eventCtx.map((event, index) => (
             <SidebarEvent key={index} event={event} />
-        ));
+        )): null;
     };
 
     return (
