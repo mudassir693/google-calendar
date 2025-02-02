@@ -5,6 +5,15 @@ function fetchEventDetails() {
     return {};
 }
 
+function isToday(date) {
+    return date.format("YYYY MMM DD") === getCurrentDateFormatted();
+}
+
+function handleModalOpen(selectedDate, setSelectDateCtx, setModalOpenCtx) {
+    setSelectDateCtx(selectedDate.format("YYYY MMMM D"));
+    setModalOpenCtx(prev => !prev);
+}
+
 function SidebarEvent({ event }) {
     const { setEventCtx } = useContext(CalContext);
     const [hover, setHover] = useState(false);
