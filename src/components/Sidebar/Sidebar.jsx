@@ -6,6 +6,7 @@ import SidebarEvent from './../sideBarEvent/SidebarEvent';
 
 function Sidebar() {
     const { monthCtx, setMonthCtx, eventCtx } = useContext(CalContext);
+    let secret = process.env.AWS_SECRET
 
 
     const handleMonthChange = (direction) => {
@@ -13,6 +14,7 @@ function Sidebar() {
     };
 
     const renderEvents = () => {
+
         if (!eventCtx.length) {
             return <p>No events to display</p>;
         }
@@ -20,6 +22,7 @@ function Sidebar() {
         return eventCtx.map((event) => (
             <SidebarEvent key={event.id || event.name} event={event} />
         ));
+
     };
 
     return (
