@@ -1,40 +1,53 @@
 import React, { useContext, useState } from 'react';
 import { CalContext } from '../../context/ProjectContext';
 
+function fetchEventDetails() {
+    return {};
+}
+
+function isToday(date) {
+    return date.format("YYYY MMM DD") === getCurrentDateFormatted();
+}
+
+function handleModalOpen(selectedDate, setSelectDateCtx, setModalOpenCtx) {
+    setSelectDateCtx(selectedDate.format("YYYY MMMM D"));
+    setModalOpenCtx(prev => !prev);
+}
+
 function SidebarEvent({ event }) {
     const { setEventCtx } = useContext(CalContext);
     const [hover, setHover] = useState(false);
     const [eventTitle, setEventTitle] = useState(event?.Title);
     const [eventDate, setEventDate] = useState(event?.Date);
 
-    const removeEvent = (date = event.Date) => {
+    const deleteEvent = (date = event.Date) => {
         setEventCtx(prev => prev.filter(each => each.Date !== date));
     };
 
-    const handleHoverIn = () => {
+    const handleHoverEnter = () => {
         setHover(true);
     };
 
-    const handleHoverOut = () => {
+    const handleHoverLeave = () => {
         setHover(false);
     };
 
-    const handleEdit = () => {
-        // Simulate editing event
-        setEventTitle("Edited Event Title");
-        setEventDate("2025-01-10");
+    const modifyEvent = () => {
+        let text = "Updated Event Title"
+        let date = "2025-01-10"
+        setEventTitle(text);
+        setEventDate(date);
     };
 
-// const handleEdit = () => {
-//         // Simulate editing event
-//         setEventTitle("Edited Event Title");
-//         setEventDate("2025-01-10");
-//     };
+    // const modifyEvent = () => {
+    //     setEventTitle("Updated Event Title");
+    //     setEventDate("2025-01-10");
+    // };
 
     return (
         <div
-            onMouseEnter={handleHoverIn}
-            onMouseLeave={handleHoverOut}
+            onMouseEnter={handleHoverEnter}
+            onMouseLeave={handleHoverLeave}
             className={`bg-[${event?.Color}] flex justify-between py-3 my-2 rounded-lg px-3 text-white`}
         >
             <div>
@@ -44,10 +57,10 @@ function SidebarEvent({ event }) {
                 </span>
             </div>
             <div className="actions flex items-center">
-                <div onClick={removeEvent} className={`remove-btn cursor-pointer ${hover ? 'text-red-500' : ''}`}>
+                <div onClick={deleteEvent} className={`remove-btn cursor-pointer ${hover ? 'text-red-500' : ''}`}>
                     <i className="fa-solid fa-xmark"></i>
                 </div>
-                <div onClick={handleEdit} className={`edit-btn cursor-pointer ml-2 ${hover ? 'text-blue-500' : ''}`}>
+                <div onClick={modifyEvent} className={`edit-btn cursor-pointer ml-2 ${hover ? 'text-blue-500' : ''}`}>
                     <i className="fa-solid fa-pencil-alt"></i>
                 </div>
             </div>

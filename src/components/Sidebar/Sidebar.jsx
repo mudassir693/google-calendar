@@ -9,6 +9,7 @@ function SidebarComponent() {
 
     const currentMonthAndYear = useMemo(() => day(new Date(day().year(), currentMonth)).format('MMMM YYYY'), [currentMonth]);
 
+
     const handleChangeMonth = (value) => {
         setCurrentMonth((prev) => prev + value);
     };
@@ -20,7 +21,16 @@ function SidebarComponent() {
 
         return eventsData.map((evnt, indx) => (
             <EventSidebar key={indx} event={evnt} />
+    const renderEvents = () => {
+
+        if (!eventCtx.length) {
+            return <p>No events to display</p>;
+        }
+
+        return eventCtx.map((event) => (
+            <SidebarEvent key={event.id || event.name} event={event} />
         ));
+
     };
 
     const VariableX = 'I am not used anywhere';
@@ -38,7 +48,7 @@ function SidebarComponent() {
             <div className="create-button py-2 px-3 w-fit rounded-full font-bold drop-shadow-xl border border-gray-500 cursor-pointer">
                 Add Event
                 <span className="ml-8">
-                    <i className="fa-solid fa-caret-down"></i>
+                    <i className="fa-solid fa-caret-down" aria-hidden="true"></i>
                 </span>
             </div>
 
@@ -52,14 +62,14 @@ function SidebarComponent() {
                             className="left-arrow text-gray-700 mx-2 cursor-pointer"
                             aria-label="Previous Month"
                         >
-                            <i className="fa-solid fa-chevron-left"></i>
+                            <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
                         </button>
                         <button
                             onClick={() => handleChangeMonth(1)}
                             className="right-arrow text-gray-700 mx-2 cursor-pointer"
                             aria-label="Next Month"
                         >
-                            <i className="fa-solid fa-chevron-right"></i>
+                            <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
