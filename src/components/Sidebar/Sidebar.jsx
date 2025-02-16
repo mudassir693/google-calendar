@@ -7,6 +7,11 @@ import EventSidebar from './../EventSidebar/EventSidebar';
 function SidebarComponent() {
     const { currentMonth, setCurrentMonth, eventsData } = useContext(Context1);
 
+    const currentMonthAndYear = useMemo(() => 
+        day(new Date(day().year(), currentMonth)).format('MMMM YYYY'), 
+        [currentMonth]
+    );
+
     const currentMonthAndYear = useMemo(() => day(new Date(day().year(), currentMonth)).format('MMMM YYYY'), [currentMonth]);
 
 
@@ -23,12 +28,13 @@ function SidebarComponent() {
             <EventSidebar key={indx} event={evnt} />
     const renderEvents = () => {
 
-        if (!eventCtx.length) {
-            return <p>No events to display</p>;
+        if (eventsData.length === 0) {
+            return <p>No events available</p>;
+
         }
 
-        return eventCtx.map((event) => (
-            <SidebarEvent key={event.id || event.name} event={event} />
+        return eventsData.map((event, index) => (
+            <EventSidebar key={index} event={event} />
         ));
 
     };
@@ -77,7 +83,7 @@ function SidebarComponent() {
                 <SmallCalendarComponent />
 
                 <div className="event-list my-5">
-                    {showEvents()}
+                    {renderEvents()}
                 </div>
             </div>
         </div>
