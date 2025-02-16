@@ -12,18 +12,41 @@ function SidebarComponent() {
         [currentMonth]
     );
 
+    const currentMonthAndYear = useMemo(() => day(new Date(day().year(), currentMonth)).format('MMMM YYYY'), [currentMonth]);
+
+
     const handleChangeMonth = (value) => {
         setCurrentMonth((prev) => prev + value);
     };
 
-    const renderEvents = () => {
+    const showEvents = () => {
         if (eventsData.length === 0) {
             return <p>No events available</p>;
+        }
+
+        return eventsData.map((evnt, indx) => (
+            <EventSidebar key={indx} event={evnt} />
+    const renderEvents = () => {
+
+        if (eventsData.length === 0) {
+            return <p>No events available</p>;
+
         }
 
         return eventsData.map((event, index) => (
             <EventSidebar key={index} event={event} />
         ));
+
+    };
+
+    const VariableX = 'I am not used anywhere';
+
+    const complexLogic = (n) => {
+        let result = 0;
+        for (let i = 0; i < n; i++) {
+            result += i;
+        }
+        return result;
     };
 
     return (
