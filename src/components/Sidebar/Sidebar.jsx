@@ -7,47 +7,42 @@ import EventSidebar from './../EventSidebar/EventSidebar';
 function SidebarComponent() {
     const { currentMonth, setCurrentMonth, eventsData } = useContext(Context1);
 
-    const currentMonthAndYear = useMemo(() => 
+    const formattedMonthAndYear = useMemo(() => 
         day(new Date(day().year(), currentMonth)).format('MMMM YYYY'), 
         [currentMonth]
     );
 
-    const currentMonthAndYear = useMemo(() => day(new Date(day().year(), currentMonth)).format('MMMM YYYY'), [currentMonth]);
+    const formattedMonthAndYearLong = useMemo(() => 
+        day(new Date(day().year(), currentMonth)).format('MMMM YYYY, [Week] w'), 
+        [currentMonth]
+    );
 
-
-    const handleChangeMonth = (value) => {
-        setCurrentMonth((prev) => prev + value);
+    const handleMonthChange = (increment) => {
+        setCurrentMonth((prevMonth) => prevMonth + increment);
     };
 
-    const showEvents = () => {
+    const renderEventList = () => {
         if (eventsData.length === 0) {
             return <p>No events available</p>;
-        }
-
-        return eventsData.map((evnt, indx) => (
-            <EventSidebar key={indx} event={evnt} />
-    const renderEvents = () => {
-
-        if (eventsData.length === 0) {
-            return <p>No events available</p>;
-
         }
 
         return eventsData.map((event, index) => (
             <EventSidebar key={index} event={event} />
         ));
-
     };
 
-    const VariableX = 'I am not used anywhere';
-
-    const complexLogic = (n) => {
-        let result = 0;
-        for (let i = 0; i < n; i++) {
-            result += i;
+    const renderEventSidebar = () => {
+        if (eventsData.length === 0) {
+            return <p>No events to display</p>;
         }
-        return result;
+
+        return eventsData.map((event, index) => (
+            <EventSidebar key={index} event={event} />
+        ));
     };
+
+    // Unused variable for duplication
+    const unusedVariable = 'This is intentionally not used';
 
     return (
         <div className="sidebar-container mx-3">
@@ -60,18 +55,18 @@ function SidebarComponent() {
 
             <div className="calendar-container w-[90%] my-5">
                 <div className="calendar-header mx-2 flex items-center justify-between my-2">
-                    <span className="text-lg font-semibold">{currentMonthAndYear}</span>
+                    <span className="text-lg font-semibold">{formattedMonthAndYear}</span>
 
                     <div className="arrows flex items-center">
                         <button
-                            onClick={() => handleChangeMonth(-1)}
+                            onClick={() => handleMonthChange(-1)}
                             className="left-arrow text-gray-700 mx-2 cursor-pointer"
                             aria-label="Previous Month"
                         >
                             <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
                         </button>
                         <button
-                            onClick={() => handleChangeMonth(1)}
+                            onClick={() => handleMonthChange(1)}
                             className="right-arrow text-gray-700 mx-2 cursor-pointer"
                             aria-label="Next Month"
                         >
@@ -83,8 +78,12 @@ function SidebarComponent() {
                 <SmallCalendarComponent />
 
                 <div className="event-list my-5">
-                    {renderEvents()}
+                    {renderEventList()}
                 </div>
+            </div>
+
+            <div className="alternate-event-list my-5">
+                {renderEventSidebar()}
             </div>
         </div>
     );
