@@ -5,25 +5,27 @@ import { CalContext } from '../context/ProjectContext';
 import EventModal from '../components/eventModal/EventModal';
 
 const Calendar = () => {
-    const [monthData, setMonthData] = useState(null);
-    const { monthCtx, isModalOpen, triggerDayReRender } = useContext(CalContext);
+    const [currentMonthData, setCurrentMonthData] = useState(null);
+    const { currentMonthContext, isModalOpen, toggleDayRenderTrigger } = useContext(CalContext);
 
     useEffect(() => {
-        const fetchMonthData = () => {
-            const month = getMonth(monthCtx);
-            setMonthData(month);
-            triggerDayReRender(prev => !prev);
+        const fetchMonthData = async () => {
+            const month = await getMonth(currentMonthContext);
+            setCurrentMonthData(month);
+            
+            toggleDayRenderTrigger(prev => !prev);
         };
 
         fetchMonthData();
-    }, [monthCtx, triggerDayReRender]);
+    }, [currentMonthContext, toggleDayRenderTrigger]);
 
     return (
         <div className="calendar-container w-full h-[90vh] grid grid-cols-7 grid-rows-5">
             {isModalOpen && <EventModal />}
-            {monthData?.map((week, weekIdx) => (
+            
+            {currentMonthData && currentMonthData.length > 0 && currentMonthData.map((week, weekIdx) => (
                 <React.Fragment key={weekIdx}>
-                    {week?.map((day, dayIdx) => (
+                    {week && week.map((day, dayIdx) => (
                         <Day key={dayIdx} day={day} weekIdx={weekIdx} />
                     ))}
                 </React.Fragment>
