@@ -8,7 +8,7 @@ function getCurrentMonthYear() {
 }
 
 function Header() {
-    const { currentMonth, setCurrentMonth } = useContext(CalContext);
+    const { currentMonth, setCurrentMonth, account } = useContext(CalContext);
 
     const changeMonth = (direction) => {
         setCurrentMonth(prevMonth => prevMonth + direction);
@@ -29,7 +29,9 @@ function Header() {
     };
 
     const resultOfCalculation = handleComplexCalculation();
-
+    if(!account){
+        return "No account found"
+    }
     return (
         <div className="header-container flex justify-between items-center py-3 px-8">
             <div className="right flex items-center">
