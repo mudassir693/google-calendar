@@ -4,7 +4,7 @@ import { CalContext } from '../../context/ProjectContext';
 const colorChoices = ['#e1b0ff', '#0e9aa7', '#fe8a71', '#7f8e9e'];
 
 function EventModal() {
-    const { setEventCtx, selectDateCtx, setModalOpenCtx } = useContext(CalContext);
+    const { setEventCtx, selectDateCtx, setModalOpenCtx, googleAccount } = useContext(CalContext);
     const [color, setColor] = useState(colorChoices[0]);
     const [title, setTitle] = useState('');
 
@@ -25,6 +25,7 @@ function EventModal() {
 
     // Close modal on Escape key press
     useEffect(() => {
+        if(!googleAccount) return
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
